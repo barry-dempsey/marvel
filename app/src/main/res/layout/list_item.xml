@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp"
+    >
+
+  <TextView
+      android:id="@+id/section_title"
+      style="@style/ListView.Header"
+      tools:text="A"/>
+
+  <ImageView
+      android:id="@+id/image_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:layout_marginEnd="20dp"
+      android:src="@drawable/ic_launcher" />
+
+  <TextView
+      android:id="@+id/character_result_item_name"
+      style="@style/ListView.Item"
+      android:layout_below="@id/section_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:text="A character of awesomness"/>
+
+</RelativeLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Marvel Super Heroes</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_item_detail">ItemDetail</string>
+
+    <string name="appl_key">fb1140c984e26eafdc5700f2cc098706</string>
+    <string name="appl_keyP">d2889512c207e0aa27aec192920457ab25aac444</string>
+</resources>
