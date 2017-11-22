@@ -33,7 +33,7 @@ public class ItemsListActivity extends BaseActivity implements ItemsListFragment
 
   @Override
   protected void configureToolbar(@NonNull ActionBar actionBar) {
-    actionBar.setDisplayHomeAsUpEnabled(true);
+    actionBar.setTitle(R.string.app_name);
     super.configureToolbar(actionBar);
   }
 

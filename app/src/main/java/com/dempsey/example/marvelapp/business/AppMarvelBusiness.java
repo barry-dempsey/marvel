@@ -7,10 +7,6 @@ import com.dempsey.example.marvelapp.data.dao.remotedao.AppMarvelLocalDao;
 import com.dempsey.example.marvelapp.data.dao.remotedao.AppMarvelRemoteDao;
 import com.dempsey.example.marvelapp.data.model.Comic;
 import com.dempsey.example.marvelapp.data.model.ParameterBuilder;
-import java.security.NoSuchAlgorithmException;
-import java.security.MessageDigest;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import rx.Observable;
 
 import static android.support.annotation.VisibleForTesting.PACKAGE_PRIVATE;
@@ -31,7 +27,7 @@ public class AppMarvelBusiness implements MarvelBusiness {
   }
 
   @Override
-  public Observable<Comic> getFullListOfComics(@NonNull ParameterBuilder paramBuilder) {
+  public Observable<Comic> getFullListOfComics(@NonNull final ParameterBuilder paramBuilder) {
     return Observable.just(remoteDao.getAllComics(paramBuilder));
   }
 

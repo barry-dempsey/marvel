@@ -14,7 +14,6 @@ import com.dempsey.example.marvelapp.presenter.BasePresenter;
 public class ItemDetailActivity extends BaseActivity {
 
 	private static final String ITEM_EXTRA = "itemExtra";
-	private ItemDetailFragment fragmentItemDetail;
 	private Comic item;
 
 	public static Intent newIntent(@NonNull Activity from, @NonNull final Comic comic) {
@@ -28,8 +27,8 @@ public class ItemDetailActivity extends BaseActivity {
 
 	@Override
 	protected void configureToolbar(@NonNull ActionBar actionBar) {
-		super.configureToolbar(actionBar);
 		actionBar.setTitle(item.getName() != null ? item.getName() : item.getDescription());
+		super.configureToolbar(actionBar);
 	}
 
 	@Override
@@ -39,17 +38,11 @@ public class ItemDetailActivity extends BaseActivity {
 		setContentView(R.layout.activity_item_detail);
 
 		if (savedInstanceState == null) {
-			fragmentItemDetail = ItemDetailFragment.newInstance(item);
+			final ItemDetailFragment fragmentItemDetail = ItemDetailFragment.newInstance(item);
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 			ft.replace(R.id.flDetailContainer, fragmentItemDetail);
 			ft.commit();
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.item_detail, menu);
-		return true;
 	}
 
 }

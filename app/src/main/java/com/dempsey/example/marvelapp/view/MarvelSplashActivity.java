@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
 import com.dempsey.example.marvelapp.R;
 import com.dempsey.example.marvelapp.data.model.ParameterBuilder;
 import com.dempsey.example.marvelapp.presenter.MarvelSplashContract;
 import com.dempsey.example.marvelapp.presenter.MarvelSplashPresenter;
+import com.dempsey.example.marvelapp.utils.NetworkConnectivityService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +29,10 @@ public class MarvelSplashActivity extends BaseActivity<MarvelSplashPresenter> im
   }
 
   private void retrieveContentToDisplay() {
-    final boolean hasStoredContent = false;//presenter.hasStoredResults();
+    final boolean hasStoredContent = presenter.hasStoredResults();
 
     if (hasStoredContent) {
-      //displayResults();
+      displayResults();
     } else {
 
       final String key = getString(R.string.appl_keyP);
@@ -54,4 +56,19 @@ public class MarvelSplashActivity extends BaseActivity<MarvelSplashPresenter> im
     startActivity(ItemsListActivity.newIntent(this));
   }
 
+  @Override
+  public void showNoNetworkError() {
+    Toast.makeText(this, "Heuston... we have a problem!!", Toast.LENGTH_LONG).show();
+
+    try {
+      Thread.sleep(3000);
+
+      if (presenter.hasStoredResults()) {
+        displayResults();
+      }
+
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
 }

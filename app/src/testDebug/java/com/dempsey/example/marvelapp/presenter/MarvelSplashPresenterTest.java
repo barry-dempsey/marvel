@@ -4,6 +4,7 @@ import com.dempsey.example.marvelapp.business.AppMarvelBusiness;
 import com.dempsey.example.marvelapp.data.model.Comic;
 import com.dempsey.example.marvelapp.data.model.Comics;
 import com.dempsey.example.marvelapp.data.model.ParameterBuilder;
+import com.dempsey.example.marvelapp.utils.NetworkConnectivityService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +14,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -24,9 +27,11 @@ public class MarvelSplashPresenterTest extends TestCase {
 
   @Mock private MarvelSplashContract.View view;
 
+  @Mock private NetworkConnectivityService service;
+
   @Before
   public void setUp() {
-    presenter = new MarvelSplashPresenter(business, view);
+    presenter = new MarvelSplashPresenter(business, view, service);
   }
 
   @Test
@@ -58,6 +63,13 @@ public class MarvelSplashPresenterTest extends TestCase {
 
     assertNotNull(paramWithEncodedString.getEncodedParameter());
     assertNotNull(paramWithEncodedString.getDateParameter());
+  }
+
+  @Test
+  public void testNetworkCallWithNoNetwork() {
+    when(service.isConnectedOrConnecting()).thenReturn(false);
+    presenter.retrieveListOfComics(provideMockParams());
+    verify(view).showNoNetworkError();
   }
 
   private Comic provideComicMock() {

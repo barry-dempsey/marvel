@@ -9,6 +9,8 @@ public interface MarvelSplashContract {
 
     void displayResults();
 
+    void showNoNetworkError();
+
   }
 
   interface ActionListener {
