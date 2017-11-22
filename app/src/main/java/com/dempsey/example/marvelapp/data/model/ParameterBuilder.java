@@ -4,10 +4,15 @@ import android.support.annotation.NonNull;
 
 public final class ParameterBuilder {
 
+  private String characterId;
   private String parameterOne;
   private String parameterTwo;
   private String dateTimeParameter;
   private String encodedParameter;
+
+  public String getCharacterId() {
+    return characterId;
+  }
 
   public String getParameterOne() {
     return parameterOne;
@@ -23,6 +28,11 @@ public final class ParameterBuilder {
 
   public String getEncodedParameter() {
     return encodedParameter;
+  }
+
+  public ParameterBuilder withCharacterId(@NonNull final String characterId) {
+    this.characterId = characterId;
+    return this;
   }
 
   public ParameterBuilder withFirstParameter(@NonNull final String parameterOne) {

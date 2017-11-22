@@ -1,5 +1,6 @@
 package com.dempsey.example.marvelapp.view;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,13 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import com.dempsey.example.marvelapp.R;
 import com.dempsey.example.marvelapp.data.model.Comic;
+import com.dempsey.example.marvelapp.presenter.ItemsContract;
 import com.dempsey.example.marvelapp.presenter.ItemsListPresenter;
 
-public class ItemsListFragment extends BaseFragment<ItemsListPresenter> {
+public class ItemsListFragment extends BaseFragment<ItemsListPresenter> implements ItemsContract.View {
 
 	private Comic comics;
 	private ItemSelection listener;
@@ -25,8 +30,10 @@ public class ItemsListFragment extends BaseFragment<ItemsListPresenter> {
 	}
 
 	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
+	public void onAttach(Context context) {
+		super.onAttach(context);
+
+		final Activity activity = ((Activity) context);
 
 		if (activity instanceof ItemSelection) {
 			listener = (ItemSelection) activity;
@@ -34,16 +41,34 @@ public class ItemsListFragment extends BaseFragment<ItemsListPresenter> {
 			throw new ClassCastException(activity.toString()
 					+ " must implement ItemsListFragment.OnItemSelectedListener");
 		}
+
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.items, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+			case R.id.action_refresh :
+				presenter.refreshListOfComics();
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
 	public ItemsListPresenter createPresenter(@NonNull Activity activity) {
-		return ItemsListPresenter.createPresenter(activity);
+		return ItemsListPresenter.createPresenter(activity, this);
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 		comics = presenter.retrieveComicsListFromStorage();
 	}
 
@@ -64,6 +89,12 @@ public class ItemsListFragment extends BaseFragment<ItemsListPresenter> {
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		adapter.loadResults(comics.getComics().getComics());
+	}
+
+	@Override
+	public void reloadFromSplashScreen() {
+		getActivity().finish();
+		startActivity(MarvelSplashActivity.newInstance(getActivity()));
 	}
 
 	/**

@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
-public class ListHelper {
+public final class ListHelper {
 
   public static ListHelper provideListHelper() {
     return new ListHelper();

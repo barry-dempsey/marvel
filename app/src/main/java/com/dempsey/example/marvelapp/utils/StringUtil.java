@@ -4,7 +4,7 @@ import android.text.TextUtils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringUtil {
+public final class StringUtil {
 
   static boolean isEmpty(String string) {
     return string == null || string.length() == 0;

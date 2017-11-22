@@ -4,7 +4,7 @@ import android.provider.Settings;
 import com.scottyab.aescrypt.AESCrypt;
 import java.security.GeneralSecurityException;
 
-public class Cryptor {
+public final class Cryptor {
 
   public String applyEncoding(final String dataString) {
     try {

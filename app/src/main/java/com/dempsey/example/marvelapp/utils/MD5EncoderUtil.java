@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-public class MD5EncoderUtil {
+public final class MD5EncoderUtil {
 
   public static MD5EncoderUtil newInstance() {
     return new MD5EncoderUtil();

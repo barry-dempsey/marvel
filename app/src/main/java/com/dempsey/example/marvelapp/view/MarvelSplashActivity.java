@@ -1,8 +1,10 @@
 package com.dempsey.example.marvelapp.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import com.dempsey.example.marvelapp.R;
 import com.dempsey.example.marvelapp.data.model.ParameterBuilder;
 import com.dempsey.example.marvelapp.presenter.MarvelSplashContract;
@@ -11,6 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MarvelSplashActivity extends BaseActivity<MarvelSplashPresenter> implements MarvelSplashContract.View {
+
+  private static final String CHARACTER_ID = "1009268";
+
+  public static Intent newInstance(final FragmentActivity from) {
+    return new Intent(from, MarvelSplashActivity.class);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +32,14 @@ public class MarvelSplashActivity extends BaseActivity<MarvelSplashPresenter> im
     if (hasStoredContent) {
       //displayResults();
     } else {
+
       final String key = getString(R.string.appl_keyP);
       final String key2 = getString(R.string.appl_key);
       final ParameterBuilder paramBuilder = new ParameterBuilder()
+          .withCharacterId(CHARACTER_ID)
           .withFirstParameter(key)
           .withSecondParameter(key2);
+
       presenter.retrieveListOfComics(paramBuilder);
     }
   }
@@ -42,4 +53,5 @@ public class MarvelSplashActivity extends BaseActivity<MarvelSplashPresenter> im
   public void displayResults() {
     startActivity(ItemsListActivity.newIntent(this));
   }
+
 }
