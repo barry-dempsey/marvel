@@ -8,5 +8,7 @@ public interface MarvelLocalDao {
   void storeToInternal(@NonNull final Comic comics);
   
   Comic retrieveFromStorage();
+
+  void deleteAllFromStorage();
   
 }

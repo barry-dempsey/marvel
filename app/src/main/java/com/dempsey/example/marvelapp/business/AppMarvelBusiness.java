@@ -5,10 +5,12 @@ import android.support.annotation.NonNull;
 import com.dempsey.example.marvelapp.data.dao.remotedao.AppMarvelLocalDao;
 import com.dempsey.example.marvelapp.data.dao.remotedao.AppMarvelRemoteDao;
 import com.dempsey.example.marvelapp.data.model.Comic;
+import com.dempsey.example.marvelapp.data.model.ParameterBuilder;
 import java.security.NoSuchAlgorithmException;
 import java.security.MessageDigest;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import rx.Observable;
 
 public class AppMarvelBusiness implements MarvelBusiness {
 
@@ -24,28 +26,14 @@ public class AppMarvelBusiness implements MarvelBusiness {
     return new AppMarvelBusiness(AppMarvelRemoteDao.newInstance(activity), AppMarvelLocalDao.newInstance(activity));
   }
 
-  @NonNull
-  private String paramGenerator(@NonNull String... params) {
-    try {
-      final MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-      final String now = DateTime.now().withZone(DateTimeZone.UTC).toString("yyyyMMddHHmm");
-      final String args = String.format("%s%s%s", now, params[0], params[1]);
-      messageDigest.update(args.getBytes());
-      final byte[] byteDigest = messageDigest.digest();
-      return convertByteToHex(byteDigest);
-    } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
-    }
-    return "";
-  }
-
   @Override
-  public Comic getFullListOfCharacters(@NonNull final String... param) {
-    return remoteDao.getAllCharacters(paramGenerator(param), param);
+  public Observable<Comic> getFullListOfComics(@NonNull ParameterBuilder paramBuilder) {
+    return Observable.just(remoteDao.getAllComics(paramBuilder));
   }
 
   @Override
   public void storeComicsToInternalStorage(@NonNull Comic comics) {
+    deleteAllFromStorage();
     localDao.storeToInternal(comics);
   }
 
@@ -54,13 +42,9 @@ public class AppMarvelBusiness implements MarvelBusiness {
     return localDao.retrieveFromStorage();
   }
 
-  private String convertByteToHex(byte[] byteData) {
-
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < byteData.length; i++) {
-      sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
-    }
-
-    return sb.toString();
+  @Override
+  public void deleteAllFromStorage() {
+    localDao.deleteAllFromStorage();
   }
+
 }

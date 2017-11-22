@@ -1,8 +1,9 @@
 package com.dempsey.example.marvelapp.presenter;
 
 import android.support.annotation.NonNull;
+import com.dempsey.example.marvelapp.data.model.ParameterBuilder;
 
-public interface MarvelContract {
+public interface MarvelSplashContract {
 
   interface View {
 
@@ -14,7 +15,7 @@ public interface MarvelContract {
 
     boolean hasStoredResults();
 
-    void retrieveListOfCharacters(@NonNull final String... param);
+    void retrieveListOfComics(@NonNull final ParameterBuilder paramBuilder);
 
   }
 }

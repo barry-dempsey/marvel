@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import com.dempsey.example.marvelapp.R;
-import com.dempsey.example.marvelapp.presenter.MarvelContract;
+import com.dempsey.example.marvelapp.data.model.ParameterBuilder;
+import com.dempsey.example.marvelapp.presenter.MarvelSplashContract;
 import com.dempsey.example.marvelapp.presenter.MarvelSplashPresenter;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MarvelSplashActivity extends BaseActivity<MarvelSplashPresenter> implements MarvelContract.View {
+public class MarvelSplashActivity extends BaseActivity<MarvelSplashPresenter> implements MarvelSplashContract.View {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -16,14 +19,17 @@ public class MarvelSplashActivity extends BaseActivity<MarvelSplashPresenter> im
   }
 
   private void retrieveContentToDisplay() {
-    final boolean hasStoredContent = false; //presenter.hasStoredResults();
+    final boolean hasStoredContent = false;//presenter.hasStoredResults();
 
     if (hasStoredContent) {
-      displayResults();
+      //displayResults();
     } else {
       final String key = getString(R.string.appl_keyP);
       final String key2 = getString(R.string.appl_key);
-      presenter.retrieveListOfCharacters(key, key2);
+      final ParameterBuilder paramBuilder = new ParameterBuilder()
+          .withFirstParameter(key)
+          .withSecondParameter(key2);
+      presenter.retrieveListOfComics(paramBuilder);
     }
   }
 

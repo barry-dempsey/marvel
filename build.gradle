@@ -24,3 +24,21 @@ allprojects {
         }
     }
 }
+
+ext {
+    //RX Java | Android
+    rxAndroidVersion = '1.0.0'
+    rxBindingVersion = '0.2.0'
+    rxJavaVersion = '1.0.14'
+    rxAdapterVersion = '2.0.2'
+
+    //Google Support
+    googleVersion = '25.4.0'
+
+    //OkHttp
+    okHttpVersion = '3.4.2'
+
+    //Retrofit
+    retrofitVersion = '2.1.0'
+
+}

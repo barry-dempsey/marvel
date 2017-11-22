@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 import com.dempsey.example.marvelapp.R;
 import com.dempsey.example.marvelapp.data.model.Comic;
@@ -51,6 +52,16 @@ public class ItemsListActivity extends BaseActivity implements ItemsListFragment
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.items, menu);
     return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+
+      case R.id.action_settings :
+
+    }
+    return super.onOptionsItemSelected(item);
   }
 
   public void onItemSelected(final Comic comic) {

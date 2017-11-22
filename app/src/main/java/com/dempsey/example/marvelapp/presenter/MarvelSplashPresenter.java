@@ -5,20 +5,23 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import com.dempsey.example.marvelapp.business.AppMarvelBusiness;
 import com.dempsey.example.marvelapp.data.model.Comic;
+import com.dempsey.example.marvelapp.data.model.ParameterBuilder;
+import com.dempsey.example.marvelapp.utils.MD5EncoderUtil;
 import java.util.List;
+import rx.android.schedulers.AndroidSchedulers;
 
-public class MarvelSplashPresenter extends BasePresenter implements MarvelContract.ActionListener {
+public class MarvelSplashPresenter extends BasePresenter implements MarvelSplashContract.ActionListener {
 
-  private MarvelContract.View view;
+  private MarvelSplashContract.View view;
   private AppMarvelBusiness marvelBusiness;
 
-  MarvelSplashPresenter(@NonNull final AppMarvelBusiness marvelBusiness, @NonNull final MarvelContract.View view) {
+  MarvelSplashPresenter(@NonNull final AppMarvelBusiness marvelBusiness, @NonNull final MarvelSplashContract.View view) {
     this.marvelBusiness = marvelBusiness;
     this.view = view;
   }
 
   public static MarvelSplashPresenter createPresenter(@NonNull final Activity activity,
-                                                @NonNull final MarvelContract.View view) {
+                                                @NonNull final MarvelSplashContract.View view) {
     return new MarvelSplashPresenter(AppMarvelBusiness.newInstance(activity), view);
   }
 
@@ -29,23 +32,25 @@ public class MarvelSplashPresenter extends BasePresenter implements MarvelContra
   }
 
   @Override
-  public void retrieveListOfCharacters(@NonNull final String... params) {
-    new MarvelCharacterFetchTask().execute(params);
+  public void retrieveListOfComics(@NonNull final ParameterBuilder params) {
+    buildParams(params);
+
+    AsyncTask.execute(() -> {
+      marvelBusiness.getFullListOfComics(buildParams(params))
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe(comic -> {
+            marvelBusiness.storeComicsToInternalStorage(comic);
+            view.displayResults();
+          });
+    });
   }
 
-  private class MarvelCharacterFetchTask extends AsyncTask<String, Void, Comic> {
-
-    @Override
-    protected Comic doInBackground(String... strings) {
-      return marvelBusiness.getFullListOfCharacters(strings);
-    }
-
-    @Override
-    protected void onPostExecute(final Comic result) {
-      super.onPostExecute(result);
-      marvelBusiness.storeComicsToInternalStorage(result);
-      view.displayResults();
-    }
+  private ParameterBuilder buildParams(final ParameterBuilder paramBuilder) {
+    final MD5EncoderUtil encoderUtil = MD5EncoderUtil.newInstance();
+    final String encodedParam = encoderUtil.paramGenerator(paramBuilder.getParameterOne(), paramBuilder.getParameterTwo());
+    paramBuilder.withEncodedParameter(encodedParam);
+    paramBuilder.withDateParameter(encoderUtil.dateNow());
+    return paramBuilder;
   }
 
 }

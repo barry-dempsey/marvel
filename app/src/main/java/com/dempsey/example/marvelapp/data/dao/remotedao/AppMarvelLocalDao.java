@@ -30,4 +30,9 @@ public class AppMarvelLocalDao implements MarvelLocalDao {
     final String comicsStringJson = preferences.getString(COMIC_ITEMS_KEY, null);
     return new Gson().fromJson(comicsStringJson, Comic.class);
   }
+
+  @Override
+  public void deleteAllFromStorage() {
+    preferences.edit().clear().apply();
+  }
 }
