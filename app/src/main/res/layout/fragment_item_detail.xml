@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/marvel_dark_snow"
+    android:scrollbars="none"
     xmlns:tools="http://schemas.android.com/tools" >
 
     <RelativeLayout
