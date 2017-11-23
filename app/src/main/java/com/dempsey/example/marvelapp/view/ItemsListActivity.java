@@ -47,8 +47,7 @@ public class ItemsListActivity extends BaseActivity implements ItemsListFragment
   }
 
   public void onItemSelected(final Comic comic) {
-    if (isTwoPane) { // single activity with list and detail
-      // Replace frame layout with correct detail fragment
+    if (isTwoPane) {
       ItemDetailFragment fragmentItem = ItemDetailFragment.newInstance(comic);
       FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
       ft.replace(R.id.flDetailContainer, fragmentItem);

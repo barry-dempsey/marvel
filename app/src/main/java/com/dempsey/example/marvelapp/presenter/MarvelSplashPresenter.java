@@ -44,7 +44,9 @@ public class MarvelSplashPresenter extends BasePresenter implements MarvelSplash
     if (service.isConnectedOrConnecting()) {
 
       AsyncTask.execute(() -> {
-        marvelBusiness.getFullListOfComics(buildParams(params)).observeOn(AndroidSchedulers.mainThread()).subscribe(comic -> {
+        marvelBusiness.getFullListOfComics(buildParams(params))
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(comic -> {
           marvelBusiness.storeComicsToInternalStorage(comic);
           view.displayResults();
         });

@@ -40,10 +40,10 @@ public class ItemDetailFragment extends Fragment {
   }
 
   public static ItemDetailFragment newInstance(Comic item) {
-    ItemDetailFragment fragmentDemo = new ItemDetailFragment();
+    ItemDetailFragment detailFragment = new ItemDetailFragment();
     Bundle args = new Bundle();
     args.putSerializable(COMIC_ARG, item);
-    fragmentDemo.setArguments(args);
-    return fragmentDemo;
+    detailFragment.setArguments(args);
+    return detailFragment;
   }
 }

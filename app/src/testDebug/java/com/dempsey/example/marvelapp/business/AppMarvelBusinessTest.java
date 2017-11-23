@@ -44,7 +44,7 @@ public class AppMarvelBusinessTest extends TestCase {
   }
 
   @Test
-  public void aTest() {
+  public void testForDeleteFromStorage() {
     marvelBusiness.deleteAllFromStorage();
     when(marvelBusiness.retrieveComicsFromInternalStorage()).thenReturn(null);
     assertNull(marvelBusiness.retrieveComicsFromInternalStorage());

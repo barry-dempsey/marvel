@@ -61,6 +61,13 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/primary_dark</item>
     </style>
+    
+    <style name="DetailText" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginBottom">@dimen/padding_medium</item>
+    </style>
 
     <style name="normal_action_bar" parent="@style/Widget.AppCompat.ActionBar.Solid">
         <item name="elevation">@dimen/elevation_small</item>
