@@ -64,8 +64,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     void bind(@NonNull final Comic comic) {
-      final String storyName = comic.getStories().getItems().get(1).getName();
-      labelTextView.setText(StringUtil.removeUnwantedString(storyName, "story from"));
+      labelTextView.setText(comic.getName());
       String url = getThumbnailUrl(comic);
       Picasso.with(context)
           .load(url).into(imageIcon);

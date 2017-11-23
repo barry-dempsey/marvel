@@ -33,7 +33,7 @@ public class ItemDetailFragment extends Fragment {
   }
 
   private void initialiseViews(final View view) {
-    ((TextView) view.findViewById(R.id.tvTitle)).setText(StringUtil.getWordsFromString(comic.getDescription()));
+    ((TextView) view.findViewById(R.id.tvTitle)).setText(comic.getName());
     ((TextView) view.findViewById(R.id.tvBody)).setText(comic.getDescription());
     ImageView imageView = (ImageView) view.findViewById(R.id.main_image);
     imageView.setImageDrawable(imageProvider.provideImage(getActivity()));

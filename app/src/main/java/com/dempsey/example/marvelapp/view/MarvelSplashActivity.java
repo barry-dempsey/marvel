@@ -27,7 +27,7 @@ public class MarvelSplashActivity extends BaseActivity<MarvelSplashPresenter> im
   }
 
   private void retrieveContentToDisplay() {
-    final boolean hasStoredContent = presenter.hasStoredResults();
+    final boolean hasStoredContent = false;//presenter.hasStoredResults();
 
     if (hasStoredContent) {
       showListOfComics();

@@ -5,9 +5,14 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import com.dempsey.example.marvelapp.business.AppMarvelBusiness;
+import com.dempsey.example.marvelapp.data.model.Comic;
+import com.dempsey.example.marvelapp.data.model.Comics;
 import com.dempsey.example.marvelapp.data.model.ParameterBuilder;
 import com.dempsey.example.marvelapp.utils.MD5EncoderUtil;
 import com.dempsey.example.marvelapp.utils.NetworkConnectivityService;
+import com.dempsey.example.marvelapp.utils.StringUtil;
+import java.util.ArrayList;
+import java.util.List;
 import rx.android.schedulers.AndroidSchedulers;
 
 import static android.support.annotation.VisibleForTesting.PACKAGE_PRIVATE;
@@ -47,7 +52,7 @@ public class MarvelSplashPresenter extends BasePresenter implements MarvelSplash
         marvelBusiness.getFullListOfComics(buildParams(params))
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(comic -> {
-          marvelBusiness.storeComicsToInternalStorage(comic);
+          marvelBusiness.storeComicsToInternalStorage(parse(comic));
           view.displayResults();
         });
       });
@@ -55,6 +60,25 @@ public class MarvelSplashPresenter extends BasePresenter implements MarvelSplash
 
       view.showNoNetworkError();
     }
+  }
+
+  private Comic parse(final Comic comic) {
+    final Comics comics = comic.getComics();
+    final List<Comic> comicList = new ArrayList<>();
+
+    for (final Comic comicFromList : comics.getComics()) {
+
+      final String comicName = comicFromList.getStories().getItems().get(1).getName();
+      comicFromList.setName(StringUtil.removeUnwantedString(comicName, "story from"));
+      comicList.add(comicFromList);
+
+    }
+
+    comics.setComics(comicList);
+    comic.setComics(comics);
+
+    return comic;
+
   }
 
   @VisibleForTesting (otherwise = PACKAGE_PRIVATE)
