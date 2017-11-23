@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Superhéroes de Marvel</string>
+  <string name="action_settings">Refrescar</string>
+  <string name="connectivity_warning">No hay conexión a Internet</string>
+  <string name="title_activity_item_detail">Detalle Comic</string>
+</resources>

@@ -8,22 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.dempsey.example.marvelapp.utils.ListHelper;
 import com.dempsey.example.marvelapp.R;
 import com.dempsey.example.marvelapp.utils.StringUtil;
 import com.dempsey.example.marvelapp.data.model.Comic;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   private final ItemsListFragment.ItemSelection listener;
   private final Context context;
   private List<Comic> comics;
-  private Map<String, Integer> mapWithSections;
-
 
   ItemsAdapter(final Context context, final ItemsListFragment.ItemSelection listener) {
     this.comics = new ArrayList<>();
@@ -41,19 +37,12 @@ public class ItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   @Override
   public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     final Comic comic = comics.get(position);
-    final String section = getSection(comic);
-    final boolean showSection = mapWithSections.get(section) == position;
-    ((SuperHeroViewHolder) holder).bind(comic, section, showSection);
+    ((SuperHeroViewHolder) holder).bind(comic);
   }
 
   void loadResults(@NonNull final List<Comic> comics) {
     this.comics = comics;
-    mapWithSections = ListHelper.provideListHelper().getMapWithSections(comics);
     notifyDataSetChanged();
-  }
-
-  private String getSection(final Comic comic) {
-    return comic.getDescription().substring(0, 1).toUpperCase();
   }
 
   @Override
@@ -64,26 +53,27 @@ public class ItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   private class SuperHeroViewHolder extends RecyclerView.ViewHolder {
 
     private View rootView;
-    private TextView sectionView;
     private TextView labelTextView;
     private ImageView imageIcon;
 
     SuperHeroViewHolder(View view) {
       super(view);
       rootView = view;
-      sectionView = (TextView) view.findViewById(R.id.section_title);
       labelTextView = (TextView) view.findViewById(R.id.character_result_item_name);
       imageIcon = (ImageView) view.findViewById(R.id.image_icon);
     }
 
-    void bind(@NonNull final Comic comic, final String section, final boolean showSection) {
-      sectionView.setText(section);
-      sectionView.setVisibility(showSection ? View.VISIBLE : View.GONE);
-      final String shortDescription = StringUtil.getWordsFromString(comic.getDescription());
-      labelTextView.setText(String.format("%s ...", shortDescription));
+    void bind(@NonNull final Comic comic) {
+      final String storyName = comic.getStories().getItems().get(1).getName();
+      labelTextView.setText(StringUtil.removeUnwantedString(storyName, "story from"));
+      String url = getThumbnailUrl(comic);
       Picasso.with(context)
-          .load(comic.getResourceURI()).into(imageIcon);
+          .load(url).into(imageIcon);
       rootView.setOnClickListener(view -> listener.onItemSelected(comic));
+    }
+
+    private String getThumbnailUrl(final Comic comic) {
+      return String.format("%s.%s", comic.getThumbnail().getPath(), comic.getThumbnail().getExtension());
     }
   }
 }

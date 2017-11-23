@@ -1,44 +1,43 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    repositories {
-        jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+  repositories {
+    jcenter()
+    maven {
+      url 'https://maven.google.com/'
+      name 'Google'
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.3.0'
-    }
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:2.2.3'
+    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+    classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+    classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.3.0'
+  }
 }
 
 allprojects {
-    repositories {
-        jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+  repositories {
+    jcenter()
+    maven {
+      url 'https://maven.google.com/'
+      name 'Google'
     }
+  }
 }
 
 ext {
-    //RX Java | Android
-    rxAndroidVersion = '1.0.0'
-    rxBindingVersion = '0.2.0'
-    rxJavaVersion = '1.0.14'
-    rxAdapterVersion = '2.0.2'
+  //RX Java | Android
+  rxAndroidVersion = '1.0.0'
+  rxBindingVersion = '0.2.0'
+  rxJavaVersion = '1.0.14'
+  rxAdapterVersion = '2.0.2'
 
-    //Google Support
-    googleVersion = '25.4.0'
+  //Google Support
+  googleVersion = '25.4.0'
 
-    //OkHttp
-    okHttpVersion = '3.4.2'
+  //OkHttp
+  okHttpVersion = '3.4.2'
 
-    //Retrofit
-    retrofitVersion = '2.1.0'
-
+  //Retrofit
+  retrofitVersion = '2.1.0'
 }

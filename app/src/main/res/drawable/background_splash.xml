@@ -1,0 +1,9 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- Background color -->
+  <item android:drawable="@color/marvel_dark_snow"/>
+
+  <!-- Logo at the center of the screen -->
+  <item
+      android:drawable="@drawable/deadpool_img_1"
+      android:gravity="center"/>
+</layer-list>

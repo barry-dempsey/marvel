@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import com.dempsey.example.marvelapp.business.AppMarvelBusiness;
-import com.dempsey.example.marvelapp.data.model.Comic;
 import com.dempsey.example.marvelapp.data.model.ParameterBuilder;
 import com.dempsey.example.marvelapp.utils.MD5EncoderUtil;
 import com.dempsey.example.marvelapp.utils.NetworkConnectivityService;
@@ -45,21 +44,15 @@ public class MarvelSplashPresenter extends BasePresenter implements MarvelSplash
     if (service.isConnectedOrConnecting()) {
 
       AsyncTask.execute(() -> {
-        marvelBusiness.getFullListOfComics(buildParams(params))
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(comic -> {
-              marvelBusiness.storeComicsToInternalStorage(comic);
-              view.displayResults();
-            });
-
+        marvelBusiness.getFullListOfComics(buildParams(params)).observeOn(AndroidSchedulers.mainThread()).subscribe(comic -> {
+          marvelBusiness.storeComicsToInternalStorage(comic);
+          view.displayResults();
+        });
       });
-
     } else {
 
       view.showNoNetworkError();
-
     }
-
   }
 
   @VisibleForTesting (otherwise = PACKAGE_PRIVATE)

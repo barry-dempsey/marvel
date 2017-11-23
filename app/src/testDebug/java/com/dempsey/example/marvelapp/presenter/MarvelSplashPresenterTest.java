@@ -35,10 +35,10 @@ public class MarvelSplashPresenterTest extends TestCase {
   }
 
   @Test
-  public void assertWeHaveNoComicsStoredOnStartup() {
+  public void assertWeGetBackFromStorage() {
     when(business.retrieveComicsFromInternalStorage()).thenReturn(provideComicMock());
     final boolean hasResults = presenter.hasStoredResults();
-    assertFalse(hasResults);
+    assertTrue(hasResults);
   }
 
   @Test

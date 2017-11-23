@@ -24,4 +24,8 @@ public final class StringUtil {
     return matcher.group();
   }
 
+  public static String removeUnwantedString(final String string, final String stringToRemove) {
+    return trimSpaces(string.replaceFirst(stringToRemove,""));
+  }
+
 }

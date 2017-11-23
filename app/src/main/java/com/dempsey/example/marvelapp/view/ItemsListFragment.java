@@ -77,12 +77,16 @@ public class ItemsListFragment extends BaseFragment<ItemsListPresenter> implemen
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_items_list, container,
 				false);
+		initialiseAdapter(view);
+		return view;
+	}
+
+	private void initialiseAdapter(final View view) {
 		final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 		adapter = new ItemsAdapter(getActivity(), listener);
 		final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
 		recyclerView.setLayoutManager(manager);
 		recyclerView.setAdapter(adapter);
-		return view;
 	}
 
 	@Override
@@ -102,6 +106,11 @@ public class ItemsListFragment extends BaseFragment<ItemsListPresenter> implemen
 	 * given the 'activated' state when touched.
 	 */
 	public void setActivateOnItemClick(boolean activateOnItemClick) {
+		final Comic firstComicItem = comics.getComics().getComics().get(0);
+
+		if (firstComicItem != null) {
+			listener.onItemSelected(firstComicItem);
+		}
 
 	}
 

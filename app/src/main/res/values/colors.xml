@@ -3,4 +3,8 @@
   <color name="primary_dark">#273444</color>
   <color name="primary">#85D7FF</color>
   <color name="off_white">#F9FAFC</color>
+  <color name="marvel_yellow">#FFD55F</color>
+  <color name="marvel_purple">#7E5BEF</color>
+  <color name="marvel_dark_snow">#EFF2F7</color>
+  <color name="transparent">#80000000</color>
 </resources>

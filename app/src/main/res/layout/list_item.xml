@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="20dp"
+    android:orientation="horizontal"
+    android:background="@color/marvel_dark_snow"
+    android:paddingBottom="@dimen/padding_small"
+    android:layout_marginBottom="@dimen/padding_medium"
     >
-
-  <TextView
-      android:id="@+id/section_title"
-      style="@style/ListView.Header"
-      tools:text="A"/>
 
   <ImageView
       android:id="@+id/image_icon"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentRight="true"
+      android:layout_marginTop="@dimen/padding_xlarge"
+      android:layout_width="80dp"
+      android:layout_height="110dp"
+      android:layout_marginEnd="3dp"
       android:layout_centerVertical="true"
-      android:layout_marginEnd="20dp"
-      android:src="@drawable/ic_launcher" />
+      android:layout_alignParentEnd="true"
+      tools:src="@drawable/ic_launcher"
+      />
 
   <TextView
-      android:id="@+id/character_result_item_name"
+      style="@style/ListView.Header"
+      android:id="@+id/section_title"
+      tools:text="A"
+      />
+
+  <TextView
       style="@style/ListView.Item"
-      android:layout_below="@id/section_title"
+      android:id="@+id/character_result_item_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      tools:text="A character of awesomness"/>
+      android:layout_marginStart="@dimen/padding_medium"
+      android:layout_toLeftOf="@id/image_icon"
+      android:layout_below="@id/section_title"
+      android:ellipsize="none"
+      tools:text="A character of awesomness"
+      />
+
 
 </RelativeLayout>

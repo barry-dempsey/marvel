@@ -9,10 +9,7 @@ import android.widget.Toast;
 import com.dempsey.example.marvelapp.R;
 import com.dempsey.example.marvelapp.data.model.ParameterBuilder;
 import com.dempsey.example.marvelapp.presenter.MarvelSplashContract;
-import com.dempsey.example.marvelapp.presenter.MarvelSplashPresenter;
-import com.dempsey.example.marvelapp.utils.NetworkConnectivityService;
-import java.util.ArrayList;
-import java.util.List;
+import com.dempsey.example.marvelapp.presenter.MarvelSplashPresenter;;
 
 public class MarvelSplashActivity extends BaseActivity<MarvelSplashPresenter> implements MarvelSplashContract.View {
 
@@ -25,14 +22,15 @@ public class MarvelSplashActivity extends BaseActivity<MarvelSplashPresenter> im
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     retrieveContentToDisplay();
   }
 
   private void retrieveContentToDisplay() {
-    final boolean hasStoredContent = presenter.hasStoredResults();
+    final boolean hasStoredContent = false;//presenter.hasStoredResults();
 
     if (hasStoredContent) {
-      displayResults();
+      showListOfComics();
     } else {
 
       final String key = getString(R.string.appl_keyP);
@@ -44,6 +42,10 @@ public class MarvelSplashActivity extends BaseActivity<MarvelSplashPresenter> im
 
       presenter.retrieveListOfComics(paramBuilder);
     }
+  }
+
+  private void showListOfComics() {
+    startActivity(ItemsListActivity.newIntent(this));
   }
 
   @Override
@@ -58,10 +60,10 @@ public class MarvelSplashActivity extends BaseActivity<MarvelSplashPresenter> im
 
   @Override
   public void showNoNetworkError() {
-    Toast.makeText(this, "Heuston... we have a problem!!", Toast.LENGTH_LONG).show();
+    Toast.makeText(this, R.string.connectivity_warning, Toast.LENGTH_LONG).show();
 
     try {
-      Thread.sleep(3000);
+      Thread.sleep(3000);//TODO
 
       if (presenter.hasStoredResults()) {
         displayResults();
