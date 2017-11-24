@@ -5,13 +5,15 @@ import android.support.annotation.NonNull;
 
 public class AppRestServiceProvider extends RestServiceProvider<RestService> {
 
+  private static final String BASE_URL = "http://gateway.marvel.com/";
+
   public AppRestServiceProvider(@NonNull Context context) {
     super(context);
   }
 
   @Override
   protected String getServiceEndpoint() {
-    return "http://gateway.marvel.com/";
+    return BASE_URL;
   }
 
   @Override
