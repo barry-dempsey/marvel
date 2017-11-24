@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.dempsey.example.marvelapp.R;
-import com.dempsey.example.marvelapp.utils.StringUtil;
 import com.dempsey.example.marvelapp.data.model.Comic;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
