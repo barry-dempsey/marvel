@@ -35,9 +35,15 @@ public class ItemsListPresenterTest extends TestCase {
   }
 
   @Test
-  public void test() {
+  public void testWeGetNonNullComicsFromStorage() {
     when(presenter.retrieveComicsListFromStorage()).thenReturn(new Comic());
     assertNotNull(presenter.retrieveComicsListFromStorage());
+  }
+
+  @Test
+  public void testForRefresh() {
+    presenter.refreshListOfComics();
+    verify(view).reloadFromSplashScreen();
   }
 
 }
