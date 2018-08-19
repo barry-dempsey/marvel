@@ -13,7 +13,9 @@ import com.dempsey.example.marvelapp.utils.NetworkConnectivityService;
 import com.dempsey.example.marvelapp.utils.StringUtil;
 import java.util.ArrayList;
 import java.util.List;
+import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static android.support.annotation.VisibleForTesting.PACKAGE_PRIVATE;
 
@@ -47,15 +49,13 @@ public class MarvelSplashPresenter extends BasePresenter implements MarvelSplash
     buildParams(params);
 
     if (service.isConnectedOrConnecting()) {
-
-      AsyncTask.execute(() -> {
         marvelBusiness.getFullListOfComics(buildParams(params))
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(comic -> {
           marvelBusiness.storeComicsToInternalStorage(parse(comic));
           view.displayResults();
         });
-      });
     } else {
 
       view.showNoNetworkError();
