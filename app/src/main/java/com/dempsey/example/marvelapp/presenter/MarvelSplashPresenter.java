@@ -1,7 +1,6 @@
 package com.dempsey.example.marvelapp.presenter;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import com.dempsey.example.marvelapp.business.AppMarvelBusiness;
@@ -13,7 +12,6 @@ import com.dempsey.example.marvelapp.utils.NetworkConnectivityService;
 import com.dempsey.example.marvelapp.utils.StringUtil;
 import java.util.ArrayList;
 import java.util.List;
-import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
